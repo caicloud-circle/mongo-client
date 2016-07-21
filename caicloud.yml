@@ -1,0 +1,20 @@
+pre_build:
+  image: index.caicloud.io/caicloud/golang:1.6
+  volumes:
+    - .:/go/src/mongo-client
+  commands:
+    - cd /go/src/mongo-client
+    - ls
+    - go build -v .
+  outputs:
+    - /go/src/mongo-client/mongo-client
+
+build:
+  dockerfile_name: Dockerfile
+
+deploy:
+  - application: mongo-client
+    cluster: 1012a341-3f1c-4b17-90da-444a9da694aa
+    partition: demo
+    containers:
+    - con-client
